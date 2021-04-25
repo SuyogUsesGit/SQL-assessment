@@ -1,0 +1,57 @@
+CREATE TABLE `person` (
+  `person_id` int NOT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `preferred_first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `hire_date` date DEFAULT NULL,
+  `occupation` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`person_id`)
+) 
+
+
+
+CREATE TABLE `address` (
+  `address_id` int NOT NULL,
+  `person_id` int NOT NULL,
+  `address_type` varchar(4) NOT NULL,
+  `street_line_1` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `zip_code` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`address_id`),
+  KEY `person_id` (`person_id`),
+  CONSTRAINT `address_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`)
+)
+
+
+
+insert into person
+select 1, 'Thomas', 'Tom', 'Federer', '1990-10-13', '2000-04-06', 'T';
+insert into person
+select 2, 'Ron', '', 'Miller', '1991-10-13', '2001-03-06', 'R';
+insert into person
+select 3, 'Max', NULL, 'Henson', '1992-10-13', '2002-03-06', 'M';
+insert into person
+select 4, 'Jimmy', 'Jim', 'Hawkings', '1993-10-13', '2003-03-06', NULL;
+insert into person
+select 5, 'Timothy', 'Tim', 'Jefferson', '1989-10-13', '2003-03-06', NULL;
+insert into person
+select 6, 'Seth', '', 'Rollings', '1989-10-13', '2021-04-01', NULL;
+insert into person
+select 7, 'Peter', '', 'Smith', '1989-10-13', '2020-04-01', NULL;
+insert into person
+select 8, 'Jonas', '', 'Jones', '1989-10-13', '2020-04-01', NULL;
+
+insert into address
+select 1, 4, 'HOME', 'NE street', 'Redmond', 'WA', '98052';
+insert into address
+select 2, 6, 'BILL', 'SE street', 'Seattle', 'WA', '98055';
+insert into address
+select 3, 7, 'BILL', '25 Science Park, New Haven, CT 06511', 'Seattle', 'WA', '98055';
+insert into address
+select 4, 7, 'HOME', '89 Lyon Circle, Clifton, VA 12345', 'Seattle', 'WA', '98055';
+insert into address
+select 5, 8, 'BILL', '275 Winchester Ave, New Haven, CT 06511', 'Seattle', 'WA', '98055';
+insert into address
+select 6, 8, 'HOME', '212 Maple Ave, Manassas, VA 22033 ', 'Seattle', 'WA', '98055';
